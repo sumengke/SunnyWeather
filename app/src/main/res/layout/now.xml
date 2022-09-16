@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nowLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="530dp">
+
+    <FrameLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:fitsSystemWindows="true">
+        <TextView
+            android:id="@+id/placeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:ellipsize="middle"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/bodyLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/currentTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#fff"
+            android:textSize="70sp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:id="@+id/currentSky"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:text="|"/>
+            <TextView
+                android:id="@+id/currentAQI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:textColor="#fff"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+<!--该布局中包括两份部分,分别是头布局和当前天气信息布局.头布局中之放置了一个TextView用于显示城市名;当前天气信息布局中放置了几个TextView,分别显示温度\天气情况以及天气质量-->
+<!--其中如果想要一行显示文本，，超出部分用省略号代替。一般会使用android:singleLine="true".android:ellipsize="middle" 省略号放到中间的位置-->
+<!--android:fitsSystemWindows="true"表示给系统状态栏留出空间-->

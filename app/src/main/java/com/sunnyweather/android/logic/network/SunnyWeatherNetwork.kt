@@ -11,7 +11,13 @@ import kotlin.coroutines.suspendCoroutine
 
 //创建一个单例类用于指定一个统一的网络数据源访问入口,对所有的网络请求的API进行封装
 object SunnyWeatherNetwork {
-    //首次按创建一个PlaceService接口的动态代理对象
+    //创建一个weatherService接口的动态代理对象
+    private val weatherService = ServiceCreator.create(WeatherService::class.java)
+    //定义一个挂起函数,调用weatherService接口中定义的getDailyWeather()方法和getRealtimeWeather()方法
+    suspend fun getDailyWeather(lng:String, lat:String) = weatherService.getDailyWeather(lng, lat).await()
+    suspend fun getRealtimeWeather(lng:String, lat:String) = weatherService.getRealtimeWeather(lng, lat).await()
+
+    //首先按创建一个PlaceService接口的动态代理对象
     private val placeService = ServiceCreator.create<PlaceService>()
     //定义一个挂起函数:searchPlaces()函数,在这里调用在PlaceService接口中定义的searchPlaces()方法(用于获取城市信息的方法),以便发起搜索城市数据请求
     suspend fun searchPlaces(query:String) = placeService.searchPlaces(query).await()
