@@ -11,6 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:fitsSystemWindows="true">
+        <Button
+            android:id="@+id/navBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_home"/>
         <TextView
             android:id="@+id/placeName"
             android:layout_width="wrap_content"
@@ -67,6 +74,7 @@
 
 </RelativeLayout>
 
+<!--添加一个Button作为切换城市的按钮,让他居左显示-->
 <!--该布局中包括两份部分,分别是头布局和当前天气信息布局.头布局中之放置了一个TextView用于显示城市名;当前天气信息布局中放置了几个TextView,分别显示温度\天气情况以及天气质量-->
 <!--其中如果想要一行显示文本，，超出部分用省略号代替。一般会使用android:singleLine="true".android:ellipsize="middle" 省略号放到中间的位置-->
 <!--android:fitsSystemWindows="true"表示给系统状态栏留出空间-->

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sunnyweather.android.R
 import com.sunnyweather.android.logic.model.Place
 import com.sunnyweather.android.ui.weather.WeatherActivity
+import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.place_item.view.*
 
 //给RecyclerView创建一个适配器:PlaceAdapter,继承自RecyclerView.Adapter,泛型指定为PlaceAdapter.ViewHolder
@@ -30,14 +31,25 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
         holder.itemView.setOnClickListener {
             val position = holder.adapterPosition
             val place = placeList[position]
-            val intent = Intent(parent.context, WeatherActivity::class.java).apply {
-                putExtra("location_lng", place.location.lng)
-                putExtra("location_lat", place.location.lat)
-                putExtra("place_name", place.name)
-            }//在点击事件中,要获取点击项的经纬度和地区名称,并将它们传入到Intent中
+            //对PlaceFragment所处的Activity进行判断
+            val activity = fragment.activity
+            if (activity is WeatherActivity) {
+                activity.drawerLayout.closeDrawers()
+                activity.viewModel.locationLng = place.location.lng
+                activity.viewModel.locationLat = place.location.lat
+                activity.viewModel.placeName = place.name
+                activity.refreshWeather()
+            } else {
+                val intent = Intent(parent.context, WeatherActivity::class.java).apply {
+                    putExtra("location_lng", place.location.lng)
+                    putExtra("location_lat", place.location.lat)
+                    putExtra("place_name", place.name)
+                }
+                fragment.startActivity(intent)  //调用Fragment的startActivity()方法启动WeatherActivity
+                activity?.finish()
+            }
+           //在点击事件中,要获取点击项的经纬度和地区名称,并将它们传入到Intent中
             fragment.viewModel.savePlace(place)  //在点击任何子项布局时,在跳转到WeatherActivity之前,先调用PlaceViewModel的savePlace()方法来存储选中的城市
-            fragment.startActivity(intent)  //调用Fragment的startActivity()方法启动WeatherActivity
-            fragment.activity?.finish()
         }
         return holder
     }

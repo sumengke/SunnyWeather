@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sunnyweather.android.MainActivity
 import com.sunnyweather.android.R
 import com.sunnyweather.android.ui.weather.WeatherActivity
 import kotlinx.android.synthetic.main.fragment_place.*
@@ -31,7 +32,8 @@ class PlaceFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //对存储的状态进行判断和读取:如果以存在存储的数据,就获取已存储的数据并解析为Place对象
-        if (viewModel.isPlaceSaved()) {
+        //只有当PlaceFragment被嵌入MainActivity中,且之前已经存在选中的城市时,才会跳转到WeatherActivity,解决了无限循环跳转的问题
+        if (activity is MainActivity && viewModel.isPlaceSaved()) {
             val place = viewModel.getSavedPlace()
             val intent = Intent(context, WeatherActivity::class.java).apply{
                 putExtra("location_lng", place.location.lng)
